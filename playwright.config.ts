@@ -11,10 +11,6 @@ const config: PlaywrightTestConfig = {
   workers: 1,
   reporter: "list",
   use: {
-    contextOptions: {
-      // TODO: remove after we fix the cert
-      ignoreHTTPSErrors: true,
-    },
     viewport: { width: 1920, height: 1080 },
     actionTimeout: 0,
     baseURL: "https://localhost:3000",

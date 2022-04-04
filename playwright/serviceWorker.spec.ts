@@ -1,6 +1,5 @@
 import { test, Page, expect } from "@playwright/test"
 
-const sslCertificateErrorRegex = /SSL\scertificate\serror/mig
 const serviceWorkerRegex = /serviceworker/mig
 
 test.describe("service worker", () => {
@@ -8,10 +7,10 @@ test.describe("service worker", () => {
 
   test.beforeAll(async ({ browser }) => {
     page = await browser.newPage()
-    // listen for SSL certificate errors
+    // listen for service worker errors
     page.on("console", (consoleMessage) => {
       if (consoleMessage.type() === "error") {
-        expect(consoleMessage.text()).not.toMatch(sslCertificateErrorRegex)
+        expect(consoleMessage.text()).not.toMatch(serviceWorkerRegex)
       }
     })
   })
@@ -20,12 +19,6 @@ test.describe("service worker", () => {
   })
 
   test("registers the service worker", async ({ context }) => {
-    // listen for service worker errors
-    page.on("console", (consoleMessage) => {
-      if (consoleMessage.type() === "error") {
-        expect(consoleMessage.text()).not.toMatch(serviceWorkerRegex)
-      }
-    })
     const numberOfServiceWorkerRegistrations = await page.evaluate(() => {
       if (navigator.serviceWorker) {
         return navigator.serviceWorker.ready
