@@ -1,0 +1,54 @@
+{
+    "name": "playwright-service-worker-demo",
+    "version": "1.0.0",
+    "dependencies": {
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "workbox-precaching": "^6.5.1",
+        "workbox-window": "^6.5.1"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "start:sw": "serve ./build/",
+        "build": "react-scripts build",
+        "playwright-install": "playwright install",
+        "playwright": "playwright test",
+        "eject": "react-scripts eject"
+    },
+    "jest": {
+        "resetMocks": false
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "react-scripts": "5.0.0",
+        "typescript": "^4.5.4",
+        "@testing-library/jest-dom": "^5.14.1",
+        "@testing-library/react": "^12.0.0",
+        "@testing-library/react-hooks": "^7.0.1",
+        "@testing-library/user-event": "^13.2.1",
+        "@testing-library/dom": "^8.1.0",
+        "@types/testing-library__jest-dom": "^5.14.1",
+        "@types/jest": "^27.4.0",
+        "@types/node": "^14.17.6",
+        "@types/react": "^17.0.15",
+        "@types/react-dom": "^17.0.9",
+        "sass": "^1.35.2",
+        "ts-jest": "^27.1.2",
+        "jest-standard-reporter": "^2.0.0",
+        "jest": "27.1.0",
+        "jest-mock": "^27.4.2",
+        "serve": "^13.0.2",
+        "@playwright/test": "~1.19.2"
+    }
+}
