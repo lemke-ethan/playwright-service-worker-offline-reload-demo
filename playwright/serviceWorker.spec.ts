@@ -1,5 +1,13 @@
 import { test, Page, expect } from "@playwright/test"
 
+/* 
+  TODO: replace with test that 
+  1. navigates to the page
+  1. puts the browser context into offline mode
+  1. reloads the page
+  1. asserts that application is still showing and not chromium error page
+*/
+
 const serviceWorkerRegex = /serviceworker/mig
 
 test.describe("service worker", () => {
