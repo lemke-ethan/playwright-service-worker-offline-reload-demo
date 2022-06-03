@@ -1,6 +1,6 @@
 {
-    "name": "Demo App",
-    "short_name": "demo",
+    "name": "Offline Reload Demo App",
+    "short_name": "offline-reload-demo",
     "icons": [
         {
             "src": "favicon.ico",

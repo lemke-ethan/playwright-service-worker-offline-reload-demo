@@ -17,7 +17,7 @@ export function buildAppComponent() {
 function App() {
     return (
         <div className="app">
-            Playwright service worker demo app
+            Playwright service worker offline reload demo app
         </div>
     )
 }
