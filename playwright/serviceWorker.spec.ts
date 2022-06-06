@@ -1,4 +1,4 @@
-import { test, Page, expect } from "@playwright/test"
+import { test, expect } from "@playwright/test"
 
 /* 
   TODO: replace with test that 
@@ -8,37 +8,39 @@ import { test, Page, expect } from "@playwright/test"
   1. asserts that application is still showing and not chromium error page
 */
 
-const serviceWorkerRegex = /serviceworker/mig
+test("can load the dashboard while offline", async ({ page, context }) => {
+  await page.goto("/")
 
-test.describe("service worker", () => {
-  let page: Page
+  // wait for pre-cache
+  await new Promise<void>(resolve => {
+    setTimeout(async () => {
+      resolve()
+    }, 5000)
+  })
 
-  test.beforeAll(async ({ browser }) => {
-    page = await browser.newPage()
-    // listen for service worker errors
-    page.on("console", (consoleMessage) => {
-      if (consoleMessage.type() === "error") {
-        expect(consoleMessage.text()).not.toMatch(serviceWorkerRegex)
-      }
+  await context.setOffline(true)
+
+  // this triggers a redirect to chrome-error://chromewebdata/ in headless mode but not in debug mode or in chrome
+  await expect(page.reload()).rejects.toEqual(
+    expect.objectContaining({
+      message: expect.stringContaining("ERR_INTERNET_DISCONNECTED")
     })
-  })
-  test.beforeEach(async () => {
-    await page.goto("/")
+  )
+
+  // log the following navigations and wait for the chrome-error redirect
+  await page.waitForNavigation({
+    url: url => {
+      console.log({ navUrl: url.href })
+      return url.href.includes("chrome-error")
+    }
   })
 
-  test("registers the service worker", async ({ context }) => {
-    const numberOfServiceWorkerRegistrations = await page.evaluate(() => {
-      if (navigator.serviceWorker) {
-        return navigator.serviceWorker.ready
-          .then(() => {
-            return navigator.serviceWorker
-              .getRegistrations()
-              .then(registrations => registrations.length)
-          })
-      }
-      return Promise.reject("service workers are not supported")
-    })
+  // assert that browser default error page is not shown
+  await expect(page.locator("text=ERR_INTERNET_DISCONNECTED")).not.toBeVisible()
 
-    expect(numberOfServiceWorkerRegistrations).toBe(1)
-  })
+  // assert that app is being shown
+  await expect(
+    page.locator("text=Playwright service worker offline reload demo app")
+  ).toBeVisible()
 })
+
