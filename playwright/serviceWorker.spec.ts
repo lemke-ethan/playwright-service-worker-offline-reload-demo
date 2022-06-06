@@ -15,7 +15,7 @@ test("can load the dashboard while offline", async ({ page, context }) => {
   await new Promise<void>(resolve => {
     setTimeout(async () => {
       resolve()
-    }, 5000)
+    }, 2000)
   })
 
   await context.setOffline(true)
