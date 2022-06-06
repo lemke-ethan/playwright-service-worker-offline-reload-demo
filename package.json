@@ -5,6 +5,8 @@
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "workbox-precaching": "^6.5.1",
+        "workbox-routing": "^6.5.1",
+        "workbox-strategies": "^6.5.1",
         "workbox-window": "^6.5.1"
     },
     "scripts": {
@@ -13,6 +15,7 @@
         "build": "react-scripts build",
         "playwright-install": "playwright install",
         "playwright": "playwright test",
+        "playwright:debug": "playwright test --debug",
         "eject": "react-scripts eject"
     },
     "jest": {
